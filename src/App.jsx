@@ -61,7 +61,6 @@ function App() {
     setSearchQuery(value);
   };
   const searchedTodos = sortedTodos.filter((todo) => {
-    console.log(todo.text);
     return todo.text.toLowerCase().includes(searchQuery.toLowerCase());
   });
 

@@ -1,0 +1,17 @@
+.todoItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #13d1e1;
+    padding: 10px;
+    border-radius: 10px;
+    width: 1280px;
+    height: auto;
+}
+.todoActions {
+    display: flex;
+    gap: 6px;
+}
+.todoText {
+    width: 1050px;
+}

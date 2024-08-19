@@ -1,19 +1,20 @@
 import { MyButton } from "../../ui/MyButton/MyButton";
 import { MyInput } from "../../ui/MyInput/MyInput";
+import styles from "./todoItem.module.css";
 
-export const TodoItem = ({ text, completed, number }) => {
+export const TodoItem = ({ text, completed, number, deleteTodo, editTodo }) => {
   return (
-    <div>
-      <div>
+    <div className={styles.todoItem}>
+      <div className={styles.todoText}>
         <strong>
           {number}. {text}
         </strong>
-        <MyInput type="checkbox" checked={completed} />
       </div>
 
-      <div>
-        <MyButton>edit</MyButton>
-        <MyButton>delete</MyButton>
+      <div className={styles.todoActions}>
+        <MyInput type="checkbox" checked={completed} />
+        <MyButton onClick={() => editTodo()}>edit</MyButton>
+        <MyButton onClick={deleteTodo}>delete</MyButton>
       </div>
     </div>
   );
