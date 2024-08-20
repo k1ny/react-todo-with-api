@@ -8,7 +8,10 @@ export const CreateForm = () => {
   const ref = useRef();
   return (
     <form
-      onSubmit={() => createTodo({ text: ref.current.value })}
+      onSubmit={(e) => {
+        e.preventDefault();
+        createTodo({ text: ref.current.value });
+      }}
       className={styles.createForm}
     >
       <MyInput ref={ref} />

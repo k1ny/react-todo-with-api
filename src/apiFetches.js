@@ -28,3 +28,13 @@ export async function deleteTodo(id) {
   });
   return await response.json();
 }
+
+export async function patchTodo(id, payload) {
+  const response = await fetch(url + "/todos/" + String(id), {
+    method: "PATCH",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  return await response.json();
+}
