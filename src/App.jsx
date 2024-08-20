@@ -6,19 +6,7 @@ import { TodoList } from "./components/todoList/todoList";
 import { Filter } from "./components/filter/Filter";
 import { Modal } from "./components/modal/Modal";
 import { CreateForm } from "./components/createForm/CreateForm";
-
-const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-const url = "http://localhost:5173/api";
-
-async function fetchTodos() {
-  await delay(500);
-  const response = await fetch(url + "/todos", {
-    method: "GET",
-    credentials: "include",
-    headers: { Accept: "application/json" },
-  });
-  return await response.json();
-}
+import { fetchTodos } from "./apiFetches";
 
 function App() {
   const [todos, setTodos] = useState([]);

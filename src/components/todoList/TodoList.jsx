@@ -6,10 +6,11 @@ export const TodoList = ({ todos }) => {
     <div className={styles.todoList}>
       {todos.map((todo, index) => (
         <TodoItem
-          key={todo.id}
+          key={todo._id}
           number={index + 1}
           text={todo.text}
           completed={todo.checked}
+          id={todo._id}
         />
       ))}
     </div>
