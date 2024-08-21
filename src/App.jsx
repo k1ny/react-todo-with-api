@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { useEffect } from "react";
 import { MyButton } from "./ui/MyButton/MyButton";
-import { TodoList } from "./components/todoList/todoList";
+import { TodoList } from "./components/todoList/TodoList";
 import { Filter } from "./components/filter/Filter";
 import { Modal } from "./components/modal/Modal";
 import { CreateForm } from "./components/createForm/CreateForm";
