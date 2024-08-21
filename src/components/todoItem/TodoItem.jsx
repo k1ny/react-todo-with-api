@@ -18,9 +18,8 @@ export const TodoItem = ({
   return (
     <div className={styles.todoItem} key={id}>
       <div className={styles.todoText}>
-        <strong>
-          {number}. {text}
-        </strong>
+        <strong>{number}.</strong>
+        <p>{text}</p>
       </div>
 
       <div className={styles.todoActions}>

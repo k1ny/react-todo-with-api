@@ -14,4 +14,6 @@
 .todoText {
     width: 100%;
     word-break: break-all;
+    display: flex;
+    gap: 8px;
 }

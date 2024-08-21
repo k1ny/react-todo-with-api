@@ -1,4 +1,4 @@
-const url = "http://localhost:5173/api";
+const url = "/api";
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export async function fetchTodos() {
