@@ -1,11 +1,10 @@
 .todoItem {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     border: 1px solid #13d1e1;
     padding: 10px;
     border-radius: 10px;
-    width: 1280px;
+    width: 100%;
     height: auto;
 }
 .todoActions {
@@ -13,5 +12,6 @@
     gap: 6px;
 }
 .todoText {
-    width: 1050px;
+    width: 100%;
+    word-break: break-all;
 }

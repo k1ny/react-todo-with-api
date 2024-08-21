@@ -6,14 +6,15 @@ import { TodoList } from "./components/todoList/todoList";
 import { Filter } from "./components/filter/Filter";
 import { Modal } from "./components/modal/Modal";
 import { CreateForm } from "./components/createForm/CreateForm";
-import { fetchTodos } from "./apiFetches";
+import { createTodo, fetchTodos, patchTodo } from "./apiFetches";
+import { deleteTodo } from "./apiFetches";
+import styles from "./App.module.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortQuery, setSortQuery] = useState("");
   const [isCreateFormOpen, setCreateFormOpen] = useState(false);
 
   useEffect(() => {
@@ -38,12 +39,7 @@ function App() {
     return <div>Undefined error</div>;
   }
 
-  const onChangeSort = (value) => {
-    setSortQuery(value);
-  };
-  const sortedTodos = sortQuery
-    ? [...todos].sort((a, b) => a[sortQuery].localeCompare(b[sortQuery]))
-    : todos;
+  const sortedTodos = todos.toSorted((a) => (a.completed ? 1 : -1));
 
   const onChangeSearch = (value) => {
     setSearchQuery(value);
@@ -52,9 +48,30 @@ function App() {
     return todo.text.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
+  const removeTodo = async (id) => {
+    await deleteTodo(id);
+    const todosQuery = await fetchTodos();
+    setTodos(todosQuery.result);
+  };
+
+  const handleUpdateTodo = async (id, payload) => {
+    setTodos(
+      todos.map((todo) => (todo._id === id ? { ...todo, ...payload } : todo)),
+    );
+    await patchTodo(id, payload);
+  };
+
+  const handleCreateTodo = async (payload) => {
+    const todoMutation = await createTodo(payload);
+    setTodos([...todos, todoMutation.result]);
+    setCreateFormOpen(false);
+  };
+
   return (
-    <>
-      <div>
+    <div className={styles.container}>
+      <div className={styles.topBar}>
+        <Filter onChangeSearch={onChangeSearch} />
+
         <MyButton
           onClick={(e) => {
             e.stopPropagation();
@@ -64,16 +81,19 @@ function App() {
           Create
         </MyButton>
       </div>
-      <Filter onChangeSearch={onChangeSearch} onChangeSort={onChangeSort} />
-      <TodoList todos={searchedTodos} />
+      <TodoList
+        todos={searchedTodos}
+        remove={removeTodo}
+        handleUpdateTodo={handleUpdateTodo}
+      />
 
       <Modal
         isOpen={isCreateFormOpen}
         handleClose={() => setCreateFormOpen(false)}
       >
-        <CreateForm />
+        <CreateForm handleCreateTodo={handleCreateTodo} />
       </Modal>
-    </>
+    </div>
   );
 }
 

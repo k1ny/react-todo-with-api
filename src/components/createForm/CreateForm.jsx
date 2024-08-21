@@ -4,13 +4,13 @@ import { MyInput } from "../../ui/MyInput/MyInput";
 import styles from "./createForm.module.css";
 import { createTodo } from "../../apiFetches.js";
 
-export const CreateForm = () => {
+export const CreateForm = ({ handleCreateTodo }) => {
   const ref = useRef();
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        createTodo({ text: ref.current.value });
+        handleCreateTodo({ text: ref.current.value });
       }}
       className={styles.createForm}
     >

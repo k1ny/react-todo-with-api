@@ -1,16 +1,22 @@
 import { MyButton } from "../../ui/MyButton/MyButton";
 import { MyInput } from "../../ui/MyInput/MyInput";
-import { deleteTodo } from "../../apiFetches";
-import { patchTodo } from "../../apiFetches";
 import styles from "./todoItem.module.css";
 import { Modal } from "../modal/Modal";
-import { PathForm } from "../PathForm/PathForm";
+import { PatchForm } from "../PatсhForm/PatсhForm";
 import { useState } from "react";
 
-export const TodoItem = ({ text, completed, number, key, id }) => {
+export const TodoItem = ({
+  text,
+  number,
+  id,
+  completed,
+  handleUpdateTodo,
+  remove,
+}) => {
   const [isPathOpen, setPathOpen] = useState(false);
+
   return (
-    <div className={styles.todoItem} key={key}>
+    <div className={styles.todoItem} key={id}>
       <div className={styles.todoText}>
         <strong>
           {number}. {text}
@@ -18,7 +24,13 @@ export const TodoItem = ({ text, completed, number, key, id }) => {
       </div>
 
       <div className={styles.todoActions}>
-        <MyInput type="checkbox" checked={completed} />
+        <MyInput
+          type="checkbox"
+          checked={completed}
+          onChange={(event) =>
+            handleUpdateTodo(id, { completed: event.target.checked })
+          }
+        />
         <MyButton
           onClick={(e) => {
             e.stopPropagation();
@@ -28,18 +40,18 @@ export const TodoItem = ({ text, completed, number, key, id }) => {
           edit
         </MyButton>
 
-        <MyButton
-          onClick={() => {
-            deleteTodo(id);
-            location.reload();
-          }}
-        >
-          delete
-        </MyButton>
+        <MyButton onClick={() => remove(id)}>delete</MyButton>
       </div>
 
       <Modal isOpen={isPathOpen} handleClose={() => setPathOpen(false)}>
-        <PathForm text={text} id={id} />
+        <PatchForm
+          text={text}
+          id={id}
+          onSubmit={(...args) => {
+            setPathOpen(false);
+            handleUpdateTodo(...args);
+          }}
+        />
       </Modal>
     </div>
   );

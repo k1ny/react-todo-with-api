@@ -1,16 +1,18 @@
 import { MyButton } from "../../ui/MyButton/MyButton";
 import { MyInput } from "../../ui/MyInput/MyInput";
-import { patchTodo } from "../../apiFetches";
 import { useRef } from "react";
 
-export const PathForm = ({ text, id }) => {
+export const PatchForm = ({ text, id, onSubmit }) => {
   const ref = useRef();
   return (
-    <form>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        onSubmit(id, { text: ref.current.value });
+      }}
+    >
       <MyInput placeholder={text} ref={ref} />
-      <MyButton onClick={() => patchTodo(id, { text: ref.current.value })}>
-        edit
-      </MyButton>
+      <MyButton>edit</MyButton>
     </form>
   );
 };

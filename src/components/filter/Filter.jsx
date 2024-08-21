@@ -1,21 +1,13 @@
 import { MyInput } from "../../ui/MyInput/MyInput";
 import { MySelect } from "../../ui/MySelect/MySelect";
+import styles from "./filter.module.css";
 
-export const Filter = ({ onChangeSearch, onChangeSort }) => {
+export const Filter = ({ onChangeSearch }) => {
   return (
-    <div>
-      <MyInput
-        placeholder="search..."
-        onChange={(event) => onChangeSearch(event.target.value)}
-      />
-      <MySelect
-        defaultValue="sort by"
-        options={[
-          { value: "text", name: "by text" },
-          { value: "completed", name: "by checkbox" },
-        ]}
-        onChange={(event) => onChangeSort(event.target.value)}
-      />
-    </div>
+    <MyInput
+      className={styles.filterInput}
+      placeholder="search..."
+      onChange={(event) => onChangeSearch(event.target.value)}
+    />
   );
 };
