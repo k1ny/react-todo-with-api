@@ -1,4 +1,4 @@
-import { TodoItem } from "../todoItem/todoItem";
+import { TodoItem } from "../todoItem/TodoItem";
 import styles from "./todoList.module.css";
 
 export const TodoList = ({ todos, remove, handleUpdateTodo }) => {
