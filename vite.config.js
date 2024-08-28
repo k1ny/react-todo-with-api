@@ -7,6 +7,7 @@ export default defineConfig({
     proxy: {
       "/api": process.env.API_BASE_URL,
     },
+    host: "0.0.0.0",
   },
   plugins: [react()],
 });
